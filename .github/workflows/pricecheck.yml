@@ -1,9 +1,9 @@
 name: Preisüberwachung
 
 on:
-  workflow_dispatch: # Manuelles Starten ermöglichen
+  workflow_dispatch:
   schedule:
-    - cron: '0 * * * *' # Läuft jede Stunde
+    - cron: '0 * * * *'
 
 jobs:
   run_script:
@@ -34,5 +34,6 @@ jobs:
           WHATSAPP_API_URL: ${{ secrets.WHATSAPP_API_URL }}
           WHATSAPP_NUMBER: ${{ secrets.WHATSAPP_NUMBER }}
           API_KEY: ${{ secrets.API_KEY }}
+          ARTICLE: ${{ secrets.ARTICLE}}
         run: node priceCheck.js
         working-directory: pricecheck

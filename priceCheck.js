@@ -8,6 +8,7 @@ const expectedPricePrefix = process.env.EXPECTED_PRICE_PREFIX;
 const whatsappApiUrl = process.env.WHATSAPP_API_URL;
 const whatsappNumber = process.env.WHATSAPP_NUMBER;
 const apiKey = process.env.API_KEY;
+const article = process.env.ARTICLE;
 
 async function sendWhatsAppMessage(message) {
   try {
@@ -35,9 +36,11 @@ async function checkPrice() {
       const priceText = priceElement.textContent.trim();
       if (!priceText.startsWith(expectedPricePrefix)) {
         console.log('Preis hat sich geändert:', priceText);
-        sendWhatsAppMessage(`Preisänderung! Neuer Preis: ${priceText}`);
+        sendWhatsAppMessage(
+          `Preisänderung von ${article}! Neuer Preis: ${priceText}`
+        );
       } else {
-        console.log('Preis unverändert:', priceText);
+        sendWhatsAppMessage(`Preis unverändert von von ${article} !`);
       }
     } else {
       console.error('Preis konnte nicht gefunden werden.');
