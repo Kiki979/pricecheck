@@ -1,7 +1,7 @@
 name: Preisüberwachung
 
 on:
-  workflow_dispatch: # Ermöglicht manuelles Starten
+  workflow_dispatch: # Manuelles Starten ermöglichen
   schedule:
     - cron: '0 * * * *' # Läuft jede Stunde
 
@@ -9,11 +9,14 @@ jobs:
   run_script:
     runs-on: ubuntu-latest
     steps:
-      - name: Repository klonen
+      - name: Repository klonen (Checkout ins richtige Verzeichnis)
         uses: actions/checkout@v3
+        with:
+          path: pricecheck
 
       - name: Debugging - Zeige Dateien in GitHub Actions
-        run: ls -R # Listet alle Dateien auf, um zu prüfen, ob package.json vorhanden ist
+        run: ls -R
+        working-directory: pricecheck
 
       - name: Node.js installieren
         uses: actions/setup-node@v3
@@ -22,6 +25,7 @@ jobs:
 
       - name: Abhängigkeiten installieren
         run: npm install
+        working-directory: pricecheck
 
       - name: Skript ausführen
         env:
@@ -31,3 +35,4 @@ jobs:
           WHATSAPP_NUMBER: ${{ secrets.WHATSAPP_NUMBER }}
           API_KEY: ${{ secrets.API_KEY }}
         run: node priceCheck.js
+        working-directory: pricecheck
