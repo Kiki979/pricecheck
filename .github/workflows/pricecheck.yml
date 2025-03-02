@@ -1,0 +1,29 @@
+name: Preisüberwachung
+
+on:
+  schedule:
+    - cron: "0 * * * *" # Jede Stunde
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository klonen
+        uses: actions/checkout@v3
+
+      - name: Node.js installieren
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Abhängigkeiten installieren
+        run: npm install
+
+      - name: Skript ausführen
+        env:
+          URL: ${{ secrets.URL }}
+          EXPECTED_PRICE_PREFIX: ${{ secrets.EXPECTED_PRICE_PREFIX }}
+          WHATSAPP_API_URL: ${{ secrets.WHATSAPP_API_URL }}
+          WHATSAPP_NUMBER: ${{ secrets.WHATSAPP_NUMBER }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: node priceCheck.js
