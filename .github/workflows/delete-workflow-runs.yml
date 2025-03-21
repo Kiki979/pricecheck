@@ -1,15 +1,15 @@
 name: Workflow Cleanup
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *' 
+    - cron: '0 3 * * *'
 
 jobs:
   cleanup:
     runs-on: ubuntu-latest
     permissions:
-      actions: write 
+      actions: write
       contents: read
 
     steps:
@@ -17,5 +17,5 @@ jobs:
         uses: Mattraks/delete-workflow-runs@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          retain_days: 2 
-          keep_minimum_runs: 5 
+          retain_days: 1
+          keep_minimum_runs: 5
