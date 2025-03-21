@@ -103,7 +103,7 @@ async function checkPrice() {
 
     if (numericPrice < targetPrice) {
       send_push_notification(
-        `🎉 Der Preis von "${article}" ist gefallen!\nNeuer Preis: ${rawPrice}`
+        `🎉 Der Preis von "${article}" ist gefallen!\nNeuer Preis: ${rawPrice}`, "2"
       );
     } else {
       console.log(
